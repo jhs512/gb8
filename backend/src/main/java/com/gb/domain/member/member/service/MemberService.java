@@ -11,6 +11,10 @@ import org.springframework.transaction.annotation.Transactional;
 public class MemberService {
     private final MemberRepository memberRepository;
 
+    public long count() {
+        return memberRepository.count();
+    }
+
     @Transactional
     public Member join(String username, String password, String nickname) {
         Member member = Member.builder()
