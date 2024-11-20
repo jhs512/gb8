@@ -4,3 +4,7 @@ spring:
   output:
     ansi:
       enabled: always # 인텔리제이 커뮤니티에서 콘솔에 색상 출력을 위한 설정
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
