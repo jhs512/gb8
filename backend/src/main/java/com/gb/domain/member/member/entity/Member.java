@@ -6,6 +6,8 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import java.time.LocalDateTime;
+
 import static jakarta.persistence.GenerationType.IDENTITY;
 
 @Entity
@@ -22,11 +24,11 @@ public class Member {
 
     @CreatedDate // INSERT 발생날짜가 자동으로 저장됨
     @Setter(AccessLevel.NONE) // 외부에서 세터를 사용하지 못하도록
-    private String createDate;
+    private LocalDateTime createDate;
 
     @LastModifiedDate // UPDATE 발생날짜가 자동으로 저장됨
     @Setter(AccessLevel.NONE) // 외부에서 세터를 사용하지 못하도록
-    private String modifyDate;
+    private LocalDateTime modifyDate;
 
     @Column(unique = true)
     private String username;
