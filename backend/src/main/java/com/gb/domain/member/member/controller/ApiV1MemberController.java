@@ -1,5 +1,6 @@
 package com.gb.domain.member.member.controller;
 
+import com.gb.domain.member.member.dto.MemberDto;
 import com.gb.domain.member.member.entity.Member;
 import com.gb.domain.member.member.service.MemberService;
 import lombok.AllArgsConstructor;
@@ -33,7 +34,7 @@ public class ApiV1MemberController {
         return Map.of(
                 "resultCode", "S-1",
                 "msg", "회원가입이 완료되었습니다.",
-                "body", member
+                "body", new MemberDto(member)
         );
     }
 }

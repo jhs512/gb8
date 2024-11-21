@@ -36,4 +36,8 @@ public class Member {
     private String password;
 
     private String nickname;
+
+    public String getName() {
+        return this.nickname;
+    }
 }
