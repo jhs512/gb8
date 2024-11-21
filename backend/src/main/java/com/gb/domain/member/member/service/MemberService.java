@@ -1,5 +1,6 @@
 package com.gb.domain.member.member.service;
 
+import com.gb.domain.global.exceptions.GlobalException;
 import com.gb.domain.member.member.entity.Member;
 import com.gb.domain.member.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
@@ -22,7 +23,7 @@ public class MemberService {
     @Transactional
     public Member join(String username, String password, String nickname) {
         findByUsername(username).ifPresent(ignored -> {
-            throw new IllegalArgumentException("이미 존재하는 회원입니다.");
+            throw new GlobalException("F-1", "이미 존재하는 회원입니다.");
         });
 
         Member member = Member.builder()
