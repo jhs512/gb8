@@ -4,6 +4,8 @@ import com.gb.domain.member.member.dto.MemberDto;
 import com.gb.domain.member.member.entity.Member;
 import com.gb.domain.member.member.service.MemberService;
 import com.gb.global.rsData.RsData;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,14 +21,17 @@ public class ApiV1MemberController {
 
     @AllArgsConstructor
     public static class MemberJoinReqBody {
+        @NotBlank
         private String username;
+        @NotBlank
         private String password;
+        @NotBlank
         private String nickname;
     }
 
     @PostMapping("/join")
     public RsData<MemberDto> join(
-            @RequestBody MemberJoinReqBody reqBody
+            @RequestBody @Valid MemberJoinReqBody reqBody
     ) {
         Member member = memberService.join(reqBody.username, reqBody.password, reqBody.nickname);
 
