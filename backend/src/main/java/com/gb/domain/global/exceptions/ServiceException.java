@@ -5,7 +5,7 @@ import com.gb.standard.base.Empty;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
-public class GlobalException extends RuntimeException {
+public class ServiceException extends RuntimeException {
     private final String resultCode;
     private final String msg;
 
