@@ -35,7 +35,13 @@ public class MemberService {
         return memberRepository.save(member);
     }
 
-    private Optional<Object> findByUsername(String username) {
+    public Optional<Member> findByUsername(String username) {
         return memberRepository.findByUsername(username);
+    }
+
+    public void checkPassword(String password, String passwordEncoded) {
+        if (!passwordEncoder.matches(password, passwordEncoded)) {
+            throw new ServiceException("F-2", "비밀번호가 일치하지 않습니다.");
+        }
     }
 }
