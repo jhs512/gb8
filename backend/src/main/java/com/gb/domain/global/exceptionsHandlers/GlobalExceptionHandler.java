@@ -20,7 +20,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseBody
     public ResponseEntity<RsData<Empty>> handleException(MethodArgumentNotValidException ex) {
-        String resultCode = "400-" + ex.getBindingResult().getFieldError().getCode();
+        String resultCode = "F-400-" + ex.getBindingResult().getFieldError().getCode();
         String msg = ex.getBindingResult().getFieldError().getField() + " : " + ex.getBindingResult().getFieldError().getDefaultMessage();
 
         return new ResponseEntity<>(RsData.of(resultCode, msg), HttpStatus.BAD_REQUEST);

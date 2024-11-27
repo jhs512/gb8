@@ -48,7 +48,7 @@ public class ApiV1MemberController {
 
         return RsData
                 .of(
-                        "S-1",
+                        "S-201-1",
                         "회원가입이 완료되었습니다.",
                         new MemberDto(member)
                 );
@@ -72,13 +72,13 @@ public class ApiV1MemberController {
     ) {
         Optional<Member> opMember = memberService.findByUsername(reqBody.username);
 
-        Member member = opMember.orElseThrow(() -> new ServiceException("F-1", "존재하지 않는 회원입니다."));
+        Member member = opMember.orElseThrow(() -> new ServiceException("F-404-1", "존재하지 않는 회원입니다."));
 
         memberService.checkPassword(reqBody.password, member.getPassword());
 
         return RsData
                 .of(
-                        "S-1",
+                        "S-200-1",
                         "%s님 환영합니다.".formatted(member.getName()),
                         new MemberDto(member)
                 );

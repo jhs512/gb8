@@ -23,7 +23,7 @@ public class MemberService {
     @Transactional
     public Member join(String username, String password, String nickname) {
         findByUsername(username).ifPresent(ignored -> {
-            throw new ServiceException("F-1", "이미 존재하는 회원입니다.");
+            throw new ServiceException("F-409-1", "이미 존재하는 회원입니다.");
         });
 
         Member member = Member.builder()
@@ -41,7 +41,7 @@ public class MemberService {
 
     public void checkPassword(String password, String passwordEncoded) {
         if (!passwordEncoder.matches(password, passwordEncoded)) {
-            throw new ServiceException("F-2", "비밀번호가 일치하지 않습니다.");
+            throw new ServiceException("F-401-1", "비밀번호가 일치하지 않습니다.");
         }
     }
 }
