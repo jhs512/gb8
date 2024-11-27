@@ -9,6 +9,9 @@ import org.springframework.lang.NonNull;
 @AllArgsConstructor(access = lombok.AccessLevel.PRIVATE)
 public class RsData<T> {
     @NonNull
+    private final int statusCode;
+
+    @NonNull
     private final String resultCode;
 
     @NonNull
@@ -22,13 +25,15 @@ public class RsData<T> {
             String msg,
             T data
     ) {
-        return new RsData<>(resultCode, msg, data);
+        int statusCode = Integer.parseInt(resultCode.split("-")[1]);
+
+        return new RsData<>(statusCode, resultCode, msg, data);
     }
 
     public static <T> RsData<T> of(
             String resultCode,
             String msg
     ) {
-        return new RsData<>(resultCode, msg, (T) new Empty());
+        return of(resultCode, msg, (T) new Empty());
     }
 }
