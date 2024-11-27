@@ -9,6 +9,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -23,11 +24,14 @@ public class ApiV1MemberController {
     private final MemberService memberService;
 
     @AllArgsConstructor
+    @Getter
     public static class MemberJoinReqBody {
         @NotBlank
         private String username;
+
         @NotBlank
         private String password;
+
         @NotBlank
         private String nickname;
     }
