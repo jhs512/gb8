@@ -13,6 +13,7 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class MemberService {
+    private final AuthTokenService authTokenService;
     private final MemberRepository memberRepository;
     private final PasswordEncoder passwordEncoder;
 
@@ -21,7 +22,9 @@ public class MemberService {
     }
 
     @Transactional
-    public Member join(String username, String password, String nickname) {
+    public Member join(String username, String password, String nickname, String refreshToken) {
+        if (refreshToken == null) refreshToken = authTokenService.genRefreshToken();
+
         findByUsername(username).ifPresent(ignored -> {
             throw new ServiceException("F-409-1", "이미 존재하는 회원입니다.");
         });
@@ -30,9 +33,15 @@ public class MemberService {
                 .username(username)
                 .password(passwordEncoder.encode(password))
                 .nickname(nickname)
+                .refreshToken(refreshToken)
                 .build();
 
         return memberRepository.save(member);
+    }
+
+    @Transactional
+    public Member join(String username, String password, String nickname) {
+        return join(username, password, nickname, authTokenService.genRefreshToken());
     }
 
     public Optional<Member> findByUsername(String username) {

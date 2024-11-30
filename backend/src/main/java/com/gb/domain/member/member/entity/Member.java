@@ -37,6 +37,8 @@ public class Member {
 
     private String nickname;
 
+    private String refreshToken;
+
     public String getName() {
         return this.nickname;
     }
