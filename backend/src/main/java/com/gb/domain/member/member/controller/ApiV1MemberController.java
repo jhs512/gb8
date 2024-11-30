@@ -12,6 +12,7 @@ import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -65,9 +66,19 @@ public class ApiV1MemberController {
         private String password;
     }
 
+    @AllArgsConstructor
+    @Getter
+    public static class MemberLoginResBody {
+        @NonNull
+        private MemberDto item;
+
+        @NonNull
+        private String accessToken;
+    }
+
     @PostMapping("/login")
     @Operation(summary = "로그인")
-    public RsData<MemberDto> login(
+    public RsData<MemberLoginResBody> login(
             @RequestBody @Valid MemberLoginReqBody reqBody
     ) {
         Optional<Member> opMember = memberService.findByUsername(reqBody.username);
@@ -76,11 +87,13 @@ public class ApiV1MemberController {
 
         memberService.checkPassword(reqBody.password, member.getPassword());
 
+        String accessToken = memberService.genAccessToken(member);
+
         return RsData
                 .of(
                         "S-200-1",
                         "%s님 환영합니다.".formatted(member.getName()),
-                        new MemberDto(member)
+                        new MemberLoginResBody(new MemberDto(member), accessToken)
                 );
     }
 }

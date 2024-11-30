@@ -53,4 +53,8 @@ public class MemberService {
             throw new ServiceException("F-401-1", "비밀번호가 일치하지 않습니다.");
         }
     }
+
+    public String genAccessToken(Member member) {
+        return authTokenService.genAccessToken(member);
+    }
 }
