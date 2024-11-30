@@ -14,12 +14,13 @@ import java.util.Date;
 
 @Service
 @RequiredArgsConstructor
-public class AuthTokenService {
+class AuthTokenService {
     public String genToken(Member member, long expireSeconds) {
         Claims claims = Jwts
                 .claims()
                 .add("id", member.getId())
                 .add("username", member.getUsername())
+                .add("authorities", member.getAuthoritiesAsStringList())
                 .build();
 
         Date issuedAt = new Date();
