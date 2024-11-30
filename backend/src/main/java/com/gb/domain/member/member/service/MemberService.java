@@ -1,6 +1,7 @@
 package com.gb.domain.member.member.service;
 
 import com.gb.domain.global.exceptions.ServiceException;
+import com.gb.domain.member.member.dto.AccessTokenMemberInfoDto;
 import com.gb.domain.member.member.entity.Member;
 import com.gb.domain.member.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
@@ -56,5 +57,13 @@ public class MemberService {
 
     public String genAccessToken(Member member) {
         return authTokenService.genAccessToken(member);
+    }
+
+    public AccessTokenMemberInfoDto getMemberInfoFromAccessToken(String accessToken) {
+        return authTokenService.getMemberInfoFromAccessToken(accessToken);
+    }
+
+    public Optional<Member> findById(long id) {
+        return memberRepository.findById(id);
     }
 }

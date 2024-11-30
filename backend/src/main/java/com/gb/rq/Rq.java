@@ -16,4 +16,14 @@ public class Rq {
     public void setStatusCode(int statusCode) {
         resp.setStatus(statusCode);
     }
+
+    public String getHeader(String headerName, String defaultValue) {
+        String value = req.getHeader(headerName);
+
+        if (value == null) {
+            return defaultValue;
+        }
+
+        return value;
+    }
 }
